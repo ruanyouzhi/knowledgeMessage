@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageController {
 @RequestMapping("/")
     public String index(){
-    return "/static/html/index.html";
+    return "/static/static/index.html";
 }
+
 }

@@ -30,6 +30,10 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <table tableName="user" domainObjectName="User"></table>
+        <table tableName="card" domainObjectName="Card"></table>
+        <table tableName="knowledge_base" domainObjectName="KnowledgeBase"></table>
+        <table tableName="label_base" domainObjectName="LabelBase"></table>
+        <table tableName="public_card" domainObjectName="PublicCard"></table>
 
     </context>
 </generatorConfiguration>
