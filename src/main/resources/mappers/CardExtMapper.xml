@@ -42,5 +42,4 @@
       #{cardDescription,jdbcType=VARCHAR}, #{imgSrc,jdbcType=VARCHAR}, #{labelName,jdbcType=VARCHAR}, 
       #{userId,jdbcType=BIGINT}, #{cardText,jdbcType=LONGVARCHAR})
   </insert>
-
 </mapper>

@@ -16,14 +16,16 @@ public class CardAddController {
     @CrossOrigin
     @PostMapping(value = "api/addcard")
     @ResponseBody
-    public Map<String,Boolean> addcard(@RequestBody Card card){
+    public Map<String,Long> addcard(@RequestBody Card card){
 
-        Map<String,Boolean>map=new HashMap<>();
+        Map<String,Long>map=new HashMap<>();
+
         try {
-            cardService.addCard(card);
-            map.put("status",true);
+            Long cardId=cardService.addCard(card);
+            map.put("cardId",cardId);
+            map.put("status", (long) 1);
         }catch (Exception e){
-            map.put("status",false);
+            map.put("status", (long) 0);
         }
         return map;
     }

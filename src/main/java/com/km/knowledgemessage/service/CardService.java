@@ -21,11 +21,12 @@ public class CardService {
     private LabelBaseMapper labelBaseMapper;
     @Autowired
     private KnowledgeBaseMapper knowledgeBaseMapper;
-    public void addCard(Card card) {
+    public long addCard(Card card) {
         card.setGmtCreate(System.currentTimeMillis());
         card.setGmtModified(card.getGmtCreate());
         cardExtMapper.insert(card);
         KnowledgeBase knowledgeBase =new KnowledgeBase();
+        knowledgeBase.setCardName(card.getTitle());
         knowledgeBase.setGmtCreate(card.getGmtCreate());
         knowledgeBase.setGmtModified(card.getGmtCreate());
         knowledgeBase.setUserId(card.getUserId());
@@ -48,8 +49,8 @@ public class CardService {
             publicCard.setGmtModified(card.getGmtModified());
             publicCard.setCardId(card.getId());
             publicCardMapper.insert(publicCard);
+
         }
-
-
+        return card.getId();
     }
 }
