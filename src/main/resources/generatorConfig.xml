@@ -34,6 +34,9 @@
         <table tableName="knowledge_base" domainObjectName="KnowledgeBase"></table>
         <table tableName="label_base" domainObjectName="LabelBase"></table>
         <table tableName="public_card" domainObjectName="PublicCard"></table>
+        <table tableName="card_num" domainObjectName="CardNum"></table>
+        <table tableName="comment" domainObjectName="Comment"></table>
+        <table tableName="notice" domainObjectName="Notice"></table>
 
     </context>
 </generatorConfiguration>

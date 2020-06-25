@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50538
 File Encoding         : 65001
 
-Date: 2020-06-24 20:55:45
+Date: 2020-06-25 08:25:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,23 +33,22 @@ CREATE TABLE `card` (
                         `user_id` bigint(20) DEFAULT NULL,
                         PRIMARY KEY (`id`),
                         KEY `card_user_id_fk` (`creator_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of card
 -- ----------------------------
-INSERT INTO `card` VALUES ('11', '1', '1592959078173', '1592959078173', '1', 'test', 'test', '1', 'test', 'test', '1');
-INSERT INTO `card` VALUES ('12', '1', '1592963523359', '1592963523359', '1', 'test', 'test', '1', 'test', 'test', '1');
 
 -- ----------------------------
 -- Table structure for `card_num`
 -- ----------------------------
 DROP TABLE IF EXISTS `card_num`;
 CREATE TABLE `card_num` (
-                            `card_id` bigint(20) DEFAULT NULL,
+                            `card_id` bigint(20) NOT NULL DEFAULT '0',
                             `like_num` bigint(20) DEFAULT NULL,
                             `comment_num` bigint(20) DEFAULT NULL,
-                            `collect_num` bigint(20) DEFAULT NULL
+                            `collect_num` bigint(20) DEFAULT NULL,
+                            PRIMARY KEY (`card_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -61,12 +60,13 @@ CREATE TABLE `card_num` (
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-                           `id` bigint(20) DEFAULT NULL,
+                           `id` bigint(20) NOT NULL AUTO_INCREMENT,
                            `card_id` bigint(20) DEFAULT NULL,
                            `commentor` bigint(20) DEFAULT NULL,
                            `gmt_create` bigint(20) DEFAULT NULL,
                            `gmt_modified` bigint(20) DEFAULT NULL,
-                           `content` varchar(500) DEFAULT NULL
+                           `content` varchar(500) DEFAULT NULL,
+                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -109,11 +109,15 @@ CREATE TABLE `knowledge_base` (
                                   `review_num` bigint(20) DEFAULT NULL,
                                   `user_id` bigint(20) DEFAULT NULL,
                                   `card_name` varchar(20) DEFAULT NULL,
+                                  `creator_id` bigint(20) DEFAULT NULL,
                                   PRIMARY KEY (`id`),
                                   KEY `knowledge_base_card_id_fk` (`card_id`),
                                   CONSTRAINT `knowledge_base_card_id_fk` FOREIGN KEY (`card_id`) REFERENCES `card` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of knowledge_base
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `label_base`
@@ -125,12 +129,11 @@ CREATE TABLE `label_base` (
                               `user_id` bigint(20) DEFAULT NULL,
                               `card_id` bigint(20) DEFAULT NULL,
                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of label_base
 -- ----------------------------
-INSERT INTO `label_base` VALUES ('3', 'test', '1', null);
 
 -- ----------------------------
 -- Table structure for `notice`
@@ -154,18 +157,15 @@ CREATE TABLE `notice` (
 -- ----------------------------
 DROP TABLE IF EXISTS `public_card`;
 CREATE TABLE `public_card` (
-                               `id` int(11) NOT NULL AUTO_INCREMENT,
+                               `card_id` bigint(20) NOT NULL DEFAULT '0',
                                `gmt_create` bigint(20) DEFAULT NULL,
                                `gmt_modified` bigint(20) DEFAULT NULL,
-                               `card_id` bigint(20) DEFAULT NULL,
-                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+                               PRIMARY KEY (`card_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of public_card
 -- ----------------------------
-INSERT INTO `public_card` VALUES ('10', '1592959078173', '1592959078173', '11');
-INSERT INTO `public_card` VALUES ('11', '1592963523359', '1592963523359', '12');
 
 -- ----------------------------
 -- Table structure for `user`

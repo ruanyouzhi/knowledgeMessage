@@ -1,14 +1,10 @@
 package com.km.knowledgemessage.service;
 
-import com.km.knowledgemessage.Mapper.CardExtMapper;
-import com.km.knowledgemessage.Mapper.KnowledgeBaseExtMapper;
-import com.km.knowledgemessage.Mapper.KnowledgeBaseMapper;
-import com.km.knowledgemessage.Model.KnowledgeBase;
-import com.km.knowledgemessage.Model.KnowledgeBaseExample;
+import com.km.knowledgemessage.Mapper.*;
+import com.km.knowledgemessage.Model.*;
 import com.km.knowledgemessage.dto.CardQueryDTO;
 import com.km.knowledgemessage.dto.paginationDTO;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +18,21 @@ import java.util.stream.Collectors;
 public class KnowledgeBaseService {
     @Autowired
     private KnowledgeBaseExtMapper knowledgeBaseExtMapper;
+    @Autowired
+    private CardMapper cardMapper;
+    @Autowired
+    private CardNumMapper cardNumMapper;
+    @Autowired
+    private CommentMapper commentMapper;
+    @Autowired
+    private NoticeMapper noticeMapper;
+    @Autowired
+    private KnowledgeBaseMapper knowledgeBaseMapper;
+    @Autowired
+    private LabelBaseMapper labelBaseMapper;
+    @Autowired
+    private PublicCardMapper publicCardMapper;
+
     public paginationDTO list(Integer userId,String search, Integer page, Integer size) {
         if(StringUtils.isNotBlank(search)){
             String []tags=StringUtils.split(search,' ');
@@ -48,5 +59,30 @@ public class KnowledgeBaseService {
 
         pagination.setData(knowledgeBaseList);
         return pagination;
+    }
+
+    public void delCard(long userId, long cardId,long creatorId) {
+        KnowledgeBaseExample knowledgeBaseExample = new KnowledgeBaseExample();
+        knowledgeBaseExample.createCriteria().andCardIdEqualTo(cardId).andUserIdEqualTo(userId);
+        knowledgeBaseMapper.deleteByExample(knowledgeBaseExample);
+        LabelBaseExample labelBaseExample = new LabelBaseExample();
+        labelBaseExample.createCriteria().andCardIdEqualTo(cardId).andUserIdEqualTo(userId);
+        labelBaseMapper.deleteByExample(labelBaseExample);
+
+        if(creatorId!=userId){
+            return;
+        }else {
+            CardExample cardExample = new CardExample();
+            cardExample.createCriteria().andCreatorIdEqualTo(creatorId)
+                    .andIdEqualTo(cardId);
+            cardMapper.deleteByExample(cardExample);
+            cardNumMapper.deleteByPrimaryKey(cardId);
+            CommentExample commentExample = new CommentExample();
+            commentExample.createCriteria().andCardIdEqualTo(cardId);
+            commentMapper.deleteByExample(commentExample);
+            publicCardMapper.deleteByPrimaryKey(cardId);
+        }
+
+
     }
 }

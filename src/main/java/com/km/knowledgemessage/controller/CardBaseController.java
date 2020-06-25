@@ -33,4 +33,22 @@ public class CardBaseController {
         }
         return map;
     }
+
+    @RequestMapping("api/delcard")
+    @ResponseBody
+    public Map<String,Long> addcard(@RequestParam(name = "userId")long userId,
+                                    @RequestParam(name = "cardId")long cardId,
+                                    @RequestParam(name = "creatorId")long creatorId){
+
+        Map<String,Long>map=new HashMap<>();
+
+        try {
+            knowledgeBaseService.delCard(userId,cardId,creatorId);
+            map.put("status", (long) 1);
+        }catch (Exception e){
+            map.put("status", (long) 0);
+        }
+        return map;
+    }
+
 }
