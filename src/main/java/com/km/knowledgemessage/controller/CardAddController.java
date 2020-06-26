@@ -1,18 +1,16 @@
 package com.km.knowledgemessage.controller;
-
 import com.km.knowledgemessage.Model.Card;
-import com.km.knowledgemessage.service.CardService;
+import com.km.knowledgemessage.service.AddCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 public class CardAddController {
     @Autowired
-    private CardService cardService;
+    private AddCardService addCardService;
     @CrossOrigin
     @PostMapping(value = "api/addcard")
     @ResponseBody
@@ -21,7 +19,7 @@ public class CardAddController {
         Map<String,Long>map=new HashMap<>();
 
         try {
-            Long cardId=cardService.addCard(card);
+            Long cardId=addCardService.addCard(card);
             map.put("cardId",cardId);
             map.put("status", (long) 1);
         }catch (Exception e){
