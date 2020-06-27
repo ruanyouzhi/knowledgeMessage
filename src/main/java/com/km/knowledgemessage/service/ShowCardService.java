@@ -24,6 +24,8 @@ public class ShowCardService {
     private LabelBaseMapper labelBaseMapper;
     @Autowired
     private KnowledgeBaseMapper knowledgeBaseMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     public String showCard(Long cardId, Long userId) { // 显示卡片内容
         //card
@@ -53,5 +55,33 @@ public class ShowCardService {
                 return "Invalid Card or User!";
             }
         }
+    }
+    public String showCardCreator(Long cardId, Long userId) { // 显示创建者
+        //card
+        // 传入当前卡片的id, 默认显示卡片详情为点击卡片，即卡片已经存在
+        Card card = cardMapper.selectByPrimaryKey(cardId);
+        Long creatorId = card.getCreatorId();
+        User user = userMapper.selectByPrimaryKey(creatorId);
+        return user.getName();
+    }
+
+    public String showCardTitle(Long cardId, Long userId) { // 显示标题
+        //card
+        // 传入当前卡片的id, 默认显示卡片详情为点击卡片，即卡片已经存在
+        Card card = cardMapper.selectByPrimaryKey(cardId);
+        return card.getTitle();
+    }
+    public String showCardDescrip(Long cardId, Long userId) { // 显示卡片描述
+        //card
+        // 传入当前卡片的id, 默认显示卡片详情为点击卡片，即卡片已经存在
+        Card card = cardMapper.selectByPrimaryKey(cardId);
+
+        return card.getCardDescription();
+    }
+    public String showCardLable(Long cardId, Long userId) { // 显示卡片标签
+        //card
+        // 传入当前卡片的id, 默认显示卡片详情为点击卡片，即卡片已经存在
+        Card card = cardMapper.selectByPrimaryKey(cardId);
+        return card.getLabelName();
     }
 }
