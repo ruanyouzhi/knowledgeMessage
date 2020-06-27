@@ -3,7 +3,7 @@ package com.km.knowledgemessage.service;
 import com.km.knowledgemessage.Mapper.*;
 import com.km.knowledgemessage.Model.*;
 import com.km.knowledgemessage.dto.CardQueryDTO;
-import com.km.knowledgemessage.dto.paginationDTO;
+import com.km.knowledgemessage.dto.PaginationDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,7 @@ public class KnowledgeBaseService {
     private CardNumMapper cardNumMapper;
     @Autowired
     private CommentMapper commentMapper;
-    @Autowired
-    private NoticeMapper noticeMapper;
+
     @Autowired
     private KnowledgeBaseMapper knowledgeBaseMapper;
     @Autowired
@@ -33,14 +32,14 @@ public class KnowledgeBaseService {
     @Autowired
     private PublicCardMapper publicCardMapper;
 
-    public paginationDTO list(Integer userId,String search, Integer page, Integer size) {
+    public PaginationDTO list(Integer userId, String search, Integer page, Integer size) {
         if(StringUtils.isNotBlank(search)){
             String []tags=StringUtils.split(search,' ');
             search= Arrays.stream(tags).collect(Collectors.joining("|"));
         }
 
         Integer totalPage;
-        paginationDTO<KnowledgeBase>pagination = new paginationDTO<>();
+        PaginationDTO<KnowledgeBase> pagination = new PaginationDTO<>();
         CardQueryDTO cardQueryDTO = new CardQueryDTO();
         cardQueryDTO.setSearch(search);
         cardQueryDTO.setUserId(userId);

@@ -62,4 +62,7 @@ public class AddCardService {
         return card.getId();
     }
 
+    public Card getCard(long cardId) {
+        return cardMapper.selectByPrimaryKey(cardId);
+    }
 }

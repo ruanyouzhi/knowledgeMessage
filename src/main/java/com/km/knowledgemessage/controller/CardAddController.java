@@ -27,4 +27,26 @@ public class CardAddController {
         }
         return map;
     }
+    @CrossOrigin
+    @PostMapping(value = "api/modifiedcard")
+    @ResponseBody
+    public Map<String,Object> modified(@RequestParam(name = "userId")long userId,
+                                     @RequestParam(name = "cardId")long cardId) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            Card card = addCardService.getCard(cardId);
+            if (userId != card.getCreatorId()) {
+                map.put("error", "不是卡片创建者");
+            } else {
+
+                map.put("status", (long) 1);
+            }
+
+        } catch (Exception e) {
+            map.put("status", (long) 0);
+        }
+        return map;
+    }
 }

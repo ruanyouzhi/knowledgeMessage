@@ -1,6 +1,6 @@
 package com.km.knowledgemessage.controller;
 
-import com.km.knowledgemessage.dto.paginationDTO;
+import com.km.knowledgemessage.dto.PaginationDTO;
 import com.km.knowledgemessage.service.KnowledgeBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ public class CardBaseController {
 
         try {
 
-            paginationDTO pageList = knowledgeBaseService.list(userId, search, page, size);
+            PaginationDTO pageList = knowledgeBaseService.list(userId, search, page, size);
             map.put("paginationList", pageList);
             map.put("status", (long) 1);
         }catch (Exception e){
@@ -33,10 +33,10 @@ public class CardBaseController {
         }
         return map;
     }
-
+    @CrossOrigin
     @RequestMapping("api/delcard")
     @ResponseBody
-    public Map<String,Long> addcard(@RequestParam(name = "userId")long userId,
+    public Map<String,Long> delCard(@RequestParam(name = "userId")long userId,
                                     @RequestParam(name = "cardId")long cardId,
                                     @RequestParam(name = "creatorId")long creatorId){
 
