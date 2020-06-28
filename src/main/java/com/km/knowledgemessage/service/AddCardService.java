@@ -24,6 +24,8 @@ public class AddCardService {
     private LabelBaseMapper labelBaseMapper;
     @Autowired
     private KnowledgeBaseMapper knowledgeBaseMapper;
+    @Autowired
+    private CardNumMapper cardNumMapper;
 
     public long addCard(Card card) {
         //card
@@ -40,7 +42,11 @@ public class AddCardService {
         knowledgeBase.setReviewTime(card.getGmtCreate());
         knowledgeBase.setReviewNum((long) 0);
         knowledgeBase.setCreatorId(card.getCreatorId());
+        knowledgeBase.setCardDescription(card.getCardDescription());
         knowledgeBaseMapper.insert(knowledgeBase);
+        CardNum cardNum=new CardNum();
+        cardNum.setCardId(card.getId());
+        cardNumMapper.insert(cardNum);
         //插入label库
         String []labels= StringUtils.split(card.getLabelName(),"，|,");
         LabelBase label=new LabelBase();

@@ -3,5 +3,5 @@
 >mvn flyway:migrate
 
 >找到占用8080的进程netstat -ano|findstr "8080"
-
+>taskkill -PID *** -F
 >set global time_zone='+8:00';

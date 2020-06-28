@@ -4,7 +4,9 @@ import com.km.knowledgemessage.Mapper.*;
 import com.km.knowledgemessage.Model.*;
 import com.km.knowledgemessage.dto.CardQueryDTO;
 import com.km.knowledgemessage.dto.PaginationDTO;
+import com.km.knowledgemessage.dto.TimeLineDTO;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +60,25 @@ public class KnowledgeBaseService {
 
         pagination.setData(knowledgeBaseList);
         return pagination;
+    }
+    public List<TimeLineDTO> simpleList(Long userId) {
+        KnowledgeBaseExample example=new KnowledgeBaseExample();
+        example.setOrderByClause("gmt_create desc");
+        example.createCriteria().andUserIdEqualTo(userId);
+        List<KnowledgeBase> knowledgeBaseList = knowledgeBaseMapper.selectByExample(example);
+        int i=0;
+        List<TimeLineDTO> timeLineDTOList=new ArrayList<>();
+        for (KnowledgeBase k :knowledgeBaseList) {
+            TimeLineDTO timeLineDTO=new TimeLineDTO();
+            CardNumExample cardNumExample = new CardNumExample();
+            cardNumExample.createCriteria().andCardIdEqualTo(k.getCardId());
+            List<CardNum> cardNums = cardNumMapper.selectByExample(cardNumExample);
+            BeanUtils.copyProperties(k,timeLineDTO);
+            timeLineDTO.setLikeNum(cardNums.get(0).getLikeNum());
+            timeLineDTOList.add(timeLineDTO);
+        }
+        return timeLineDTOList;
+
     }
 
     public void delCard(long userId, long cardId,long creatorId) {
