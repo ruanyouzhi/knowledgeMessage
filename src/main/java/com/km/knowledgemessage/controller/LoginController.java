@@ -2,34 +2,44 @@ package com.km.knowledgemessage.controller;
 
 import com.km.knowledgemessage.Model.Result;
 import com.km.knowledgemessage.Model.User;
+import com.km.knowledgemessage.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
 
 public class LoginController {
-
+    @Autowired
+    private LoginService registerService;
     @CrossOrigin
-    @PostMapping(value = "api/login")
+    @RequestMapping(value = "api/login")
     @ResponseBody
-    public Result login(@RequestBody User requestUser) {
-        // 对 html 标签进行转义，防止 XSS 攻击
-        String username = requestUser.getName();
-        username = HtmlUtils.htmlEscape(username);
+    public Map<Result, String> login(@RequestParam String userMail, String userPassword) {
+        Map<Result, String> map = new HashMap<>();
+        Long userId = registerService.getUserId(userMail);
+        if (userId == -1) {
 
-        if (!Objects.equals("admin", username) || !Objects.equals("123456", requestUser.getToken())) {
-            String message = "账号密码错误";
-            System.out.println("test");
-            return new Result(400);
-        } else {
-            return new Result(200);
+            map.put(new Result(400), "该用户不存在");
+            return map;
         }
+        User user = registerService.getUser(userId);
+        // 首先，判断是否存在该用户
+        if (!registerService.judgeExist(user)) {
+
+            if (user.getPassword().equals(userPassword)) {
+                map.put(new Result(200), "该用户正确");
+
+            } else {
+
+                map.put(new Result(200), "账号密码错误");
+            }
+        }
+        return map;
     }
 }

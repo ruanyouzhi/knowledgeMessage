@@ -15,28 +15,30 @@ import java.util.List;
 @Service
 public class RegisterService {
     @Autowired
-    private CardMapper cardMapper;
+    private UserMapper userMapper;
     @Autowired
-    private CardExtMapper cardExtMapper;
-    @Autowired
-    private PublicCardMapper publicCardMapper;
-    @Autowired
-    private LabelBaseMapper labelBaseMapper;
+    private UserExtMapper userExtMapper;
     @Autowired
     private KnowledgeBaseMapper knowledgeBaseMapper;
-    @Autowired
-    private UserMapper userMapper;
 
     public Boolean judgeExist(User user){
         // 判断是否存在用户
-        User user1 = userMapper.selectByPrimaryKey(user.getId());   // 在数据库中查询，如果有，说明该用户不能被注册
-        return user.equals(user1);
+        User user1;   // 在数据库中查询，如果有，说明该用户不能被注册
+        user1 = userMapper.selectByPrimaryKey(user.getId());
+        return user1 == null;
     }
     public long UserRegister(User user){
         // 用户注册
         user.setGmtCreate(System.currentTimeMillis());
         user.setGmtModified(user.getGmtCreate());
-        userMapper.insert(user);
+        userExtMapper.insert(user);
+        //KnowledgeBase
+        KnowledgeBase knowledgeBase =new KnowledgeBase();
+        knowledgeBase.setGmtCreate(user.getGmtCreate());
+        knowledgeBase.setGmtModified(user.getGmtCreate());
+        knowledgeBase.setUserId(user.getId());
+        knowledgeBase.setCreatorId(user.getId());
+        knowledgeBaseMapper.insert(knowledgeBase);
         return user.getId();
     }
 

@@ -23,25 +23,22 @@ public class RegisterController {
     @PostMapping(value = "api/register")
     @ResponseBody
 
-
     public Map<String,Long> register(@RequestBody User requestUser) {
-        // 对 html 标签进行转义，防止 XSS 攻击
-        String username = requestUser.getName();
-        username = HtmlUtils.htmlEscape(username);
+
         Map<String,Long>map=new HashMap<>();
         // 首先，判断是否存在该用户
-        if(!registerService.judgeExist(requestUser)){
-            try{
+        if (registerService.judgeExist(requestUser)) {
+            try {
                 Long userId = registerService.UserRegister(requestUser);
                 map.put("userId", userId);
                 map.put("status", (long) 1);
-            }catch (Exception e){
+            }
+            catch (Exception e){
                 map.put("status", (long) 0);
             }
         }
-        else{
-            System.out.println("该用户已存在！");
-            map.put("status", (long) 0);
+        else {
+            map.put("status", (long) -1);
         }
         return map;
     }
