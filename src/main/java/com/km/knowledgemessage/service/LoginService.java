@@ -5,6 +5,8 @@ import com.km.knowledgemessage.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LoginService {
     @Autowired
@@ -14,7 +16,8 @@ public class LoginService {
 
         UserExample example = new UserExample();
         example.createCriteria().andMailEqualTo(userMail);
-        User user = (User) userMapper.selectByExample(example);
+        List<User> users = userMapper.selectByExample(example);
+        User user = users.get(0);
         if (user != null){
 
             return user.getId();
