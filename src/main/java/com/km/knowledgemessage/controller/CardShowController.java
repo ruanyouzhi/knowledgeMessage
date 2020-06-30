@@ -1,5 +1,7 @@
 package com.km.knowledgemessage.controller;
 
+import com.km.knowledgemessage.Model.Card;
+import com.km.knowledgemessage.Model.CardNum;
 import com.km.knowledgemessage.service.AddCardService;
 import com.km.knowledgemessage.service.ShowCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +24,22 @@ public class CardShowController {
         HashMap<String, String> map=new HashMap<>();
         try {
 // 依次显示卡片标题， 创建者， 卡片描述， 标签， 卡片内容, 。
-            String title = showCardService.showCardTitle(cardId, userId);
+            Card card = showCardService.getCard(cardId);
+            CardNum cardNum = showCardService.getCardNum(cardId);
+            String title = card.getTitle();
             String creatorname = showCardService.showCardCreator(cardId, userId);
-            String cardContent= showCardService.showCard(cardId, userId);
-            String cardDescription = showCardService.showCardDescrip(cardId, userId);
+            String cardContent= card.getCardText();
+            String cardDescription = card.getCardDescription();
             String cardLable = showCardService.showCardLable(cardId, userId);
             map.put("cardTitle", title);
-            map.put("CreatorName", creatorname);
+            map.put("creatorName", creatorname);
             map.put("cardDescription", cardDescription);
             map.put("cardLable", cardLable);
             map.put("cardContent", cardContent);
+            map.put("modifiedTime", card.getGmtModified().toString());
+            map.put("likeNumber", cardNum.getLikeNum().toString());
+            map.put("commentNumber", cardNum.getCommentNum().toString());
+            map.put("collectNumber", cardNum.getCollectNum().toString());
             map.put("status", "true");
         }catch (Exception e){
             map.put("status", "false");
