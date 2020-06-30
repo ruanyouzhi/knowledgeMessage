@@ -34,12 +34,12 @@ public class CardShowController {
             map.put("cardTitle", title);
             map.put("creatorName", creatorname);
             map.put("cardDescription", cardDescription);
-            map.put("cardLable", cardLable);
-            map.put("cardContent", cardContent);
-            map.put("modifiedTime", card.getGmtModified().toString());
-            map.put("likeNumber", cardNum.getLikeNum().toString());
-            map.put("commentNumber", cardNum.getCommentNum().toString());
-            map.put("collectNumber", cardNum.getCollectNum().toString());
+            map.put("labelName", cardLable);
+            map.put("cardText", cardContent);
+            map.put("gmtModified", card.getGmtModified().toString());
+            map.put("likeNum", cardNum.getLikeNum().toString());
+            map.put("commentNum", cardNum.getCommentNum().toString());
+            map.put("collectNum", cardNum.getCollectNum().toString());
             map.put("status", "true");
         }catch (Exception e){
             map.put("status", "false");
