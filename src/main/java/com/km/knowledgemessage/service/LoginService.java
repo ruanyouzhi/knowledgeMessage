@@ -14,7 +14,7 @@ public class LoginService {
 
         UserExample example = new UserExample();
         example.createCriteria().andMailEqualTo(userMail);
-        User user = userMapper.selectByExample(example);
+        User user = (User) userMapper.selectByExample(example);
         if (user != null){
 
             return user.getId();

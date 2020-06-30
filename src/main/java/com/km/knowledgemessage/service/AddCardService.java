@@ -45,6 +45,9 @@ public class AddCardService {
         knowledgeBase.setCardDescription(card.getCardDescription());
         knowledgeBaseMapper.insert(knowledgeBase);
         CardNum cardNum=new CardNum();
+        cardNum.setLikeNum((long) 0);
+        cardNum.setCollectNum((long) 0);
+        cardNum.setCommentNum((long) 0);
         cardNum.setCardId(card.getId());
         cardNumMapper.insert(cardNum);
         //插入label库
