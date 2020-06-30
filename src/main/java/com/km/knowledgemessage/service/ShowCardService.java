@@ -4,6 +4,7 @@ import com.km.knowledgemessage.Mapper.*;
 import com.km.knowledgemessage.Model.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
@@ -11,26 +12,29 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class ShowCardService {
     @Autowired
     private CardMapper cardMapper;
     @Autowired
-    private CardExtMapper cardExtMapper;
-    @Autowired
-    private PublicCardMapper publicCardMapper;
-    @Autowired
-    private LabelBaseMapper labelBaseMapper;
-    @Autowired
-    private KnowledgeBaseMapper knowledgeBaseMapper;
-    @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CardNumMapper cardNumMapper;
 
+    public Card getCard(Long cardId){
+        return cardMapper.selectByPrimaryKey(cardId);
+    }
+
+    public CardNum getCardNum(Long cardId){
+        return cardNumMapper.selectByPrimaryKey(cardId);
+    }
     public String showCard(Long cardId, Long userId) { // 显示卡片内容
         //card
         // 传入当前卡片的id, 默认显示卡片详情为点击卡片，即卡片已经存在
         Card card = cardMapper.selectByPrimaryKey(cardId);
+
         if(card.getIsPublic()){
             return card.getCardText();
         }
