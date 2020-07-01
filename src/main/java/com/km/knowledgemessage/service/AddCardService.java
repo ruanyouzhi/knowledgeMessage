@@ -40,6 +40,7 @@ public class AddCardService {
         knowledgeBase.setUserId(card.getUserId());
         knowledgeBase.setCardId(card.getId());
         knowledgeBase.setReviewTime(card.getGmtCreate());
+        knowledgeBase.setLastReviewTime(System.currentTimeMillis());
         knowledgeBase.setReviewNum((long) 0);
         knowledgeBase.setCreatorId(card.getCreatorId());
         knowledgeBase.setCardDescription(card.getCardDescription());
