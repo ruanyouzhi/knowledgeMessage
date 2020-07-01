@@ -51,4 +51,20 @@ public class TimelineController {
         }
         return map;
     }
+    @CrossOrigin
+    @RequestMapping("api/upCollect")
+    @ResponseBody
+    public Map<String,Object> upCollect(@RequestParam Long userId,
+                                        @RequestParam Long cardId){
+        Map<String,Object>map=new HashMap<>();
+        Long aLong = setCardNumService.upCollect(userId, cardId);
+        try {
+
+            map.put("collectNum",aLong);
+            map.put("status", (long) 1);
+        }catch (Exception e){
+            map.put("status", (long) 0);
+        }
+        return map;
+    }
 }

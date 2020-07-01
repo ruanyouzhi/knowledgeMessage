@@ -11,6 +11,7 @@ import java.util.Map;
 public class CardAddController {
     @Autowired
     private AddCardService addCardService;
+
     @CrossOrigin
     @PostMapping(value = "api/addcard")
     @ResponseBody
@@ -45,6 +46,37 @@ public class CardAddController {
             }
 
         } catch (Exception e) {
+            map.put("status", (long) 0);
+        }
+        return map;
+    }
+    @CrossOrigin
+    @RequestMapping(value = "api/getCard")
+    @ResponseBody
+    public Map<String,Object> getCard(@RequestParam long cardId){
+
+        Map<String,Object>map=new HashMap<>();
+
+        try {
+            Card card=addCardService.getCard(cardId);
+            map.put("card",card);
+            map.put("status", (long) 1);
+        }catch (Exception e){
+            map.put("status", (long) 0);
+        }
+        return map;
+    }
+    @CrossOrigin
+    @RequestMapping(value = "api/upCard")
+    @ResponseBody
+    public Map<String,Object> upCard(@RequestBody Card card){
+
+        Map<String,Object>map=new HashMap<>();
+
+        try {
+            addCardService.upCard(card);
+            map.put("status", (long) 1);
+        }catch (Exception e){
             map.put("status", (long) 0);
         }
         return map;

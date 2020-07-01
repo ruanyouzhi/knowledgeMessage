@@ -33,6 +33,7 @@ public class CardBaseController {
         }
         return map;
     }
+
     @CrossOrigin
     @RequestMapping("api/delcard")
     @ResponseBody

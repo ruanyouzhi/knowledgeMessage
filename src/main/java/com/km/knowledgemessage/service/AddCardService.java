@@ -74,4 +74,16 @@ public class AddCardService {
     public Card getCard(long cardId) {
         return cardMapper.selectByPrimaryKey(cardId);
     }
+
+    public void upCard(Card card) {
+        cardMapper.updateByPrimaryKeySelective(card);
+        KnowledgeBase knowledgeBase=new KnowledgeBase();
+        knowledgeBase.setCardId(card.getId());
+        knowledgeBase.setCardName(card.getTitle());
+        knowledgeBase.setCardDescription(card.getCardDescription());
+        KnowledgeBaseExample example = new KnowledgeBaseExample();
+        example.createCriteria().andUserIdEqualTo(card.getCreatorId())
+                .andCardIdEqualTo(card.getId());
+        knowledgeBaseMapper.updateByExampleSelective(knowledgeBase, example);
+    }
 }
