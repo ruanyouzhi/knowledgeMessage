@@ -27,10 +27,10 @@ public class CardShowController {
             Card card = showCardService.getCard(cardId);
             CardNum cardNum = showCardService.getCardNum(cardId);
             String title = card.getTitle();
-            String creatorname = showCardService.showCardCreator(cardId, userId);
+            String creatorname = showCardService.showCardCreator(cardId, card.getCreatorId());
             String cardContent= card.getCardText();
             String cardDescription = card.getCardDescription();
-            String cardLable = showCardService.showCardLable(cardId, userId);
+            String cardLable = showCardService.showCardLable(cardId, card.getCreatorId());
             map.put("cardTitle", title);
             map.put("creatorName", creatorname);
             map.put("cardDescription", cardDescription);
@@ -40,6 +40,13 @@ public class CardShowController {
             map.put("likeNum", cardNum.getLikeNum());
             map.put("commentNum", cardNum.getCommentNum());
             map.put("collectNum", cardNum.getCollectNum());
+            map.put("cardLable", cardLable);
+            map.put("cardContent", cardContent);
+            map.put("modifiedTime", card.getGmtModified());
+            map.put("likeNumber", cardNum.getLikeNum());
+            map.put("commentNumber", cardNum.getCommentNum());
+            map.put("collectNumber", cardNum.getCollectNum());
+
             map.put("status", "true");
         }catch (Exception e){
             map.put("status", "false");
