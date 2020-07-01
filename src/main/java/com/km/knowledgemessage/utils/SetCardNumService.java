@@ -2,6 +2,7 @@ package com.km.knowledgemessage.utils;
 
 import com.km.knowledgemessage.Mapper.*;
 import com.km.knowledgemessage.Model.*;
+import com.km.knowledgemessage.enums.NoticeStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,29 @@ public class SetCardNumService {
     @Autowired
     public KnowledgeBaseMapper knowledgeBaseMapper;
     @Autowired
+    public NoticeMapper noticeMapper;
+    @Autowired
     public CardMapper cardMapper;
+    @Autowired
+    public UserMapper userMapper;
     public Long upLikeNum(long userId,long cardId){
         UserLikeExample likeExample = new UserLikeExample();
         likeExample.createCriteria()
                 .andCardIdEqualTo(cardId)
                 .andUserIdEqualTo(userId);
         long likeNum =  userLikeMappser.countByExample(likeExample);
+        Card card = cardMapper.selectByPrimaryKey(cardId);
+        User user = userMapper.selectByPrimaryKey(userId);
+        Notice notice =new Notice();
+        notice.setNotifier(userId);
+        notice.setNotifierName(user.getName());
+        notice.setReceiver(card.getCreatorId());
+        notice.setStatus(0);
+        notice.setType(4);
+        notice.setGmtcreate(System.currentTimeMillis());
+        notice.setCardId(cardId);
+        notice.setCardName(card.getTitle());
+        noticeMapper.insert(notice);
         if(likeNum==0){
             UserLike like=new UserLike();
             like.setCardId(cardId);
@@ -55,6 +72,18 @@ public class SetCardNumService {
         long count = knowledgeBaseMapper.countByExample(example);
         Card card = cardMapper.selectByPrimaryKey(cardId);
         if(card.getCreatorId()==userId)return Long.valueOf(0);
+
+        User user = userMapper.selectByPrimaryKey(userId);
+        Notice notice =new Notice();
+        notice.setNotifier(userId);
+        notice.setNotifierName(user.getName());
+        notice.setReceiver(card.getCreatorId());
+        notice.setStatus(0);
+        notice.setType(3);
+        notice.setGmtcreate(System.currentTimeMillis());
+        notice.setCardId(cardId);
+        notice.setCardName(card.getTitle());
+        noticeMapper.insert(notice);
         if(count==1){
             KnowledgeBaseExample example1 = new KnowledgeBaseExample();
             example1.createCriteria()
