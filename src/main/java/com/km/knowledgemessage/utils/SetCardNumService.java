@@ -32,6 +32,7 @@ public class SetCardNumService {
         long likeNum =  userLikeMappser.countByExample(likeExample);
         Card card = cardMapper.selectByPrimaryKey(cardId);
         User user = userMapper.selectByPrimaryKey(userId);
+        if(user==null)return Long.valueOf(0);
         Notice notice =new Notice();
         notice.setNotifier(userId);
         notice.setNotifierName(user.getName());
