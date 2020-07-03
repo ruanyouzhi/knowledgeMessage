@@ -1,16 +1,10 @@
 package com.km.knowledgemessage.controller;
-
-import com.km.knowledgemessage.Model.Card;
-import com.km.knowledgemessage.Model.KnowledgeBase;
-import com.km.knowledgemessage.dto.PaginationDTO;
 import com.km.knowledgemessage.dto.TimeLineDTO;
 import com.km.knowledgemessage.service.KnowledgeBaseService;
 import com.km.knowledgemessage.utils.SetCardNumService;
-import javafx.beans.binding.LongExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

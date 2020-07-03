@@ -8,6 +8,7 @@ import com.km.knowledgemessage.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,11 +16,11 @@ import java.util.List;
 
 @Service
 public class CardReviewService {
-    @Autowired
+    @Resource
     private UserMapper userMapper;
-    @Autowired
+    @Resource
     private CardMapper cardMapper;
-    @Autowired
+    @Resource
     private KnowledgeBaseMapper knowledgeBaseMapper;
 
     int[] Ebbinghaus = {1, 2, 4, 7, 15};

@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,20 +19,20 @@ import java.util.stream.Collectors;
 @Service
 
 public class KnowledgeBaseService {
-    @Autowired
+    @Resource
     private KnowledgeBaseExtMapper knowledgeBaseExtMapper;
-    @Autowired
+    @Resource
     private CardMapper cardMapper;
-    @Autowired
+    @Resource
     private CardNumMapper cardNumMapper;
-    @Autowired
+    @Resource
     private CommentMapper commentMapper;
 
-    @Autowired
+    @Resource
     private KnowledgeBaseMapper knowledgeBaseMapper;
-    @Autowired
+    @Resource
     private LabelBaseMapper labelBaseMapper;
-    @Autowired
+    @Resource
     private PublicCardMapper publicCardMapper;
 
     public PaginationDTO list(Integer userId, String search, Integer page, Integer size) {

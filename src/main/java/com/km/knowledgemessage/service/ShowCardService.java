@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,11 +17,11 @@ import java.util.Locale;
 
 @Service
 public class ShowCardService {
-    @Autowired
+    @Resource
     private CardMapper cardMapper;
-    @Autowired
+    @Resource
     private UserMapper userMapper;
-    @Autowired
+    @Resource
     private CardNumMapper cardNumMapper;
 
     public Card getCard(Long cardId){

@@ -7,23 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Component
 public class SetCardNumService {
-    @Autowired
+   @Resource
     public CardNumMapper cardNumMapper;
-    @Autowired
+    @Resource
     public UserLikeMapper userLikeMappser;
-    @Autowired
-    public CardNumExtMapper cardNumExtMapper;
-    @Autowired
+    @Resource
     public KnowledgeBaseMapper knowledgeBaseMapper;
-    @Autowired
+    @Resource
     public NoticeMapper noticeMapper;
-    @Autowired
+    @Resource
     public CardMapper cardMapper;
-    @Autowired
+    @Resource
     public UserMapper userMapper;
     public Long upLikeNum(long userId,long cardId){
         UserLikeExample likeExample = new UserLikeExample();

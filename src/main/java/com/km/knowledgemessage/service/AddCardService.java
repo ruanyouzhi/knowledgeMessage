@@ -6,25 +6,22 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.annotation.Resource;
 
 @Service
 public class AddCardService {
-    @Autowired
+
+    @Resource
     private CardMapper cardMapper;
-    @Autowired
+    @Resource
     private CardExtMapper cardExtMapper;
-    @Autowired
+    @Resource
     private PublicCardMapper publicCardMapper;
-    @Autowired
+    @Resource
     private LabelBaseMapper labelBaseMapper;
-    @Autowired
+    @Resource
     private KnowledgeBaseMapper knowledgeBaseMapper;
-    @Autowired
+    @Resource
     private CardNumMapper cardNumMapper;
 
     public long addCard(Card card) {
@@ -77,11 +74,13 @@ public class AddCardService {
     }
 
     public void upCard(Card card) {
+        card.setGmtModified(System.currentTimeMillis());
         cardMapper.updateByPrimaryKeySelective(card);
         KnowledgeBase knowledgeBase=new KnowledgeBase();
         knowledgeBase.setCardId(card.getId());
         knowledgeBase.setCardName(card.getTitle());
         knowledgeBase.setCardDescription(card.getCardDescription());
+        knowledgeBase.setGmtModified(card.getGmtModified());
         KnowledgeBaseExample example = new KnowledgeBaseExample();
         example.createCriteria().andUserIdEqualTo(card.getCreatorId())
                 .andCardIdEqualTo(card.getId());
