@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.rmi.runtime.NewThreadAction;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class KnowledgeBaseService {
         int i=0;
         List<TimeLineDTO> timeLineDTOList=new ArrayList<>();
         for (KnowledgeBase k :knowledgeBaseList) {
+            if(k.getCardId()==null)break;
             TimeLineDTO timeLineDTO=new TimeLineDTO();
             CardNumExample cardNumExample = new CardNumExample();
             cardNumExample.createCriteria().andCardIdEqualTo(k.getCardId());

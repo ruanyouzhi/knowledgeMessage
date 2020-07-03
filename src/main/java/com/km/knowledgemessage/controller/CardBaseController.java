@@ -22,10 +22,10 @@ public class CardBaseController {
                                         @RequestParam(name = "search", required = false) String search){
 
         Map<String,Object>map=new HashMap<>();
-
+        PaginationDTO pageList = knowledgeBaseService.list(userId, search, page, size);
         try {
 
-            PaginationDTO pageList = knowledgeBaseService.list(userId, search, page, size);
+            //PaginationDTO pageList = knowledgeBaseService.list(userId, search, page, size);
             map.put("paginationList", pageList);
             map.put("status", (long) 1);
         }catch (Exception e){

@@ -34,7 +34,7 @@ public class AddCardService {
         knowledgeBase.setCardName(card.getTitle());
         knowledgeBase.setGmtCreate(card.getGmtCreate());
         knowledgeBase.setGmtModified(card.getGmtCreate());
-        knowledgeBase.setUserId(card.getUserId());
+        knowledgeBase.setUserId(card.getCreatorId());
         knowledgeBase.setCardId(card.getId());
         knowledgeBase.setReviewTime(card.getGmtCreate());
         knowledgeBase.setLastReviewTime(System.currentTimeMillis());
@@ -51,7 +51,7 @@ public class AddCardService {
         //插入label库
         String []labels= StringUtils.split(card.getLabelName(),"，|,");
         LabelBase label=new LabelBase();
-        label.setUserId(card.getUserId());
+        label.setUserId(card.getCreatorId());
         label.setCardId(card.getId());
         for ( String tag: labels) {
             label.setLabelName(tag);
