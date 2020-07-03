@@ -20,8 +20,8 @@ public class LoginController {
     @CrossOrigin
     @RequestMapping(value = "api/login")
     @ResponseBody
-    public Map<Result, String> login(@RequestParam String userMail, String userPassword) {
-        Map<Result, String> map = new HashMap<>();
+    public Map<Result, Object> login(@RequestParam String userMail, String userPassword) {
+        Map<Result, Object> map = new HashMap<>();
         Long userId = registerService.getUserId(userMail);
         if (userId == -1) {
 
@@ -33,6 +33,7 @@ public class LoginController {
         if (!registerService.judgeExist(user)) {
 
             if (user.getPassword().equals(userPassword)) {
+                map.put(new Result(200), user.getId());
                 map.put(new Result(200), "该用户正确");
 
             } else {
