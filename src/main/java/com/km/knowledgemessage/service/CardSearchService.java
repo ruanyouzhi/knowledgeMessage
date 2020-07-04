@@ -26,7 +26,7 @@ public class CardSearchService {
 
     public List<Card> getSearchCard(String context) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andCardDescriptionGreaterThanOrEqualTo(context);   // 搜索相似的描述
+        cardExample.createCriteria().andCardDescriptionLike(context);   // 搜索相似的描述
         //cardExample.createCriteria().andTitleGreaterThanOrEqualTo(context);
         List<Card> cards = cardMapper.selectByExample(cardExample);
         return cards;
