@@ -35,6 +35,7 @@ public class AddCardService {
         knowledgeBase.setGmtCreate(card.getGmtCreate());
         knowledgeBase.setGmtModified(card.getGmtCreate());
         knowledgeBase.setUserId(card.getCreatorId());
+        knowledgeBase.setLabelName(card.getLabelName());    // by wfanyue
         knowledgeBase.setCardId(card.getId());
         knowledgeBase.setReviewTime(card.getGmtCreate());
         knowledgeBase.setLastReviewTime(System.currentTimeMillis());
