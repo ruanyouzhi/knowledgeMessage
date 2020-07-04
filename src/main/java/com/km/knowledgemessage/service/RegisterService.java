@@ -34,12 +34,7 @@ public class RegisterService {
         user.setGmtModified(user.getGmtCreate());
         userExtMapper.insert(user);
         //KnowledgeBase
-        KnowledgeBase knowledgeBase =new KnowledgeBase();
-        knowledgeBase.setGmtCreate(user.getGmtCreate());
-        knowledgeBase.setGmtModified(user.getGmtCreate());
-        knowledgeBase.setUserId(user.getId());
-        knowledgeBase.setCreatorId(user.getId());
-        knowledgeBaseMapper.insert(knowledgeBase);
+        
         return user.getId();
     }
 
