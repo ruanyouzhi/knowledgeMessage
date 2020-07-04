@@ -59,6 +59,7 @@ public class UserInfoController {
     @ResponseBody
     public Map<String,Object> modifiedUserInfo(@RequestBody User user) {
         Map<String, Object> map = new HashMap<>();
+        user.setGmtCreate(System.currentTimeMillis());
         userInfoService.setUserInfo(user);
         try {
             map.put("status", (long) 1);
