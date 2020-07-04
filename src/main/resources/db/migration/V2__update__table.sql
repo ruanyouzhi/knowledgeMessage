@@ -1,0 +1,1 @@
+ALTER TABLE knowledge_base ADD label_name varchar(20) DEFAULT NULL;

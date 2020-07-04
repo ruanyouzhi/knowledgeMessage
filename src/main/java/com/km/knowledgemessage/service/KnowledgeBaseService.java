@@ -59,7 +59,6 @@ public class KnowledgeBaseService {
         cardQueryDTO.setSize(size);
         cardQueryDTO.setPage(offset);
         knowledgeBaseList = knowledgeBaseExtMapper.selectBySearch(cardQueryDTO);
-
         pagination.setData(knowledgeBaseList);
         return pagination;
     }

@@ -3,11 +3,13 @@ package com.km.knowledgemessage.controller;
 import com.km.knowledgemessage.Model.Card;
 import com.km.knowledgemessage.Model.CardNum;
 import com.km.knowledgemessage.service.AddCardService;
+import com.km.knowledgemessage.service.KumoService;
 import com.km.knowledgemessage.service.ShowCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 // by wfanyue
@@ -16,6 +18,8 @@ public class CardShowController {
 
     @Autowired
     private ShowCardService showCardService;
+    @Resource
+    private KumoService kumoService;
     @CrossOrigin
     @RequestMapping(value = "api/showcard")
     @ResponseBody
@@ -31,6 +35,7 @@ public class CardShowController {
             String cardContent= card.getCardText();
             String cardDescription = card.getCardDescription();
             String cardLable = showCardService.showCardLable(cardId, card.getCreatorId());
+            String wordCloud = kumoService.getWordCloud(cardId);
             map.put("cardTitle", title);
             map.put("creatorName", creatorname);
             map.put("cardDescription", cardDescription);
@@ -46,7 +51,7 @@ public class CardShowController {
             map.put("likeNumber", cardNum.getLikeNum());
             map.put("commentNumber", cardNum.getCommentNum());
             map.put("collectNumber", cardNum.getCollectNum());
-
+            map.put("wordCloud",wordCloud);
             map.put("status", "true");
         }catch (Exception e){
             map.put("status", "false");
