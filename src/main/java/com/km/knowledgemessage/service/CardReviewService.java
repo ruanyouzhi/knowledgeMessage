@@ -70,7 +70,7 @@ public class CardReviewService {
             knowledgeBase.setLastReviewTime(System.currentTimeMillis());
             long reviewTime;
             if(knowledgeBase.getReviewNum() < 5) {
-                reviewTime = knowledgeBase.getLastReviewTime() + Ebbinghaus[(int) (knowledgeBase.getReviewNum() - 1)] * 1000 * 60 * 60 * 24;
+                reviewTime = knowledgeBase.getLastReviewTime() + Ebbinghaus[Math.toIntExact(knowledgeBase.getReviewNum())] * 1000 * 60 * 60 * 24;
             }
             else{ // 超过周期，默认15天复习一次
                 reviewTime = knowledgeBase.getLastReviewTime() + 15 * 1000 * 60* 60 * 24;
