@@ -27,7 +27,7 @@ public class CardShowController {
             Card card = showCardService.getCard(cardId);
             CardNum cardNum = showCardService.getCardNum(cardId);
             String title = card.getTitle();
-            String creatorname = showCardService.showCardCreator(cardId, card.getCreatorId());
+            String creatorname = showCardService.showCardCreator(cardId);
             String cardContent= card.getCardText();
             String cardDescription = card.getCardDescription();
             String cardLable = showCardService.showCardLable(cardId, card.getCreatorId());
