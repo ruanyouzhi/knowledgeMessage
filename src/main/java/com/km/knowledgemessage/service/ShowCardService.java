@@ -61,7 +61,7 @@ public class ShowCardService {
             }
         }
     }
-    public String showCardCreator(Long cardId, Long userId) { // 显示创建者
+    public String showCardCreator(Long cardId) { // 显示创建者
         //card
         // 传入当前卡片的id, 默认显示卡片详情为点击卡片，即卡片已经存在
         Card card = cardMapper.selectByPrimaryKey(cardId);
