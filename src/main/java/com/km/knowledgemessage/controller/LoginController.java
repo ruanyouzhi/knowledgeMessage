@@ -34,7 +34,7 @@ public class LoginController {
 
             if (user.getPassword().equals(userPassword)) {
                 map.put(new Result(200), user.getId());
-                map.put(new Result(200), "该用户正确");
+                //map.put(new Result(200), "该用户正确");
 
             } else {
 
