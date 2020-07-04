@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,17 +46,17 @@ public class CardReviewController {
     @CrossOrigin
     @RequestMapping(value = "api/showknowledgebase")
     @ResponseBody
-    public Map<String,Object> reviewResult(@RequestParam Long knowledgeBaseId, int state){
+    public Map<String,Object> reviewResult(@RequestParam Long knowledgeBaseId, int state) throws ParseException {
 
         HashMap<String, Object> map=new HashMap<>();
-        try {
+        //try {
             Card card = cardReviewService.getReviewResult(knowledgeBaseId, state);
             if(card != null){
                 long cardId = card.getId();
 
                 CardNum cardNum = showCardService.getCardNum(cardId);
                 String title = card.getTitle();
-                String creatorname = showCardService.showCardCreator(cardId, card.getCreatorId());
+                String creatorname = showCardService.showCardCreator(cardId);
                 String cardContent= card.getCardText();
                 String cardDescription = card.getCardDescription();
                 String cardLable = showCardService.showCardLable(cardId, card.getCreatorId());
@@ -71,9 +72,9 @@ public class CardReviewController {
             }
 
             map.put("status", "true");
-        }catch (Exception e){
-            map.put("status", "false");
-        }
+        //}catch (Exception e){
+         //   map.put("status", "false");
+        //}
         return map;
     }
 
