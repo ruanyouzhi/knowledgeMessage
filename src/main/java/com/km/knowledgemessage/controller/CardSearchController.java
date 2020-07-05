@@ -1,9 +1,6 @@
 package com.km.knowledgemessage.controller;
 
-import com.km.knowledgemessage.Model.Card;
-import com.km.knowledgemessage.Model.CardNum;
-import com.km.knowledgemessage.Model.KnowledgeBase;
-import com.km.knowledgemessage.Model.User;
+import com.km.knowledgemessage.Model.*;
 import com.km.knowledgemessage.service.CardReviewService;
 import com.km.knowledgemessage.service.CardSearchService;
 import com.km.knowledgemessage.service.ShowCardService;
