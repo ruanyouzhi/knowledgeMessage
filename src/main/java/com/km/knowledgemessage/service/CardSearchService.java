@@ -1,19 +1,11 @@
 package com.km.knowledgemessage.service;
-
 import com.km.knowledgemessage.Mapper.CardMapper;
-import com.km.knowledgemessage.Mapper.CardNumMapper;
 import com.km.knowledgemessage.Mapper.KnowledgeBaseMapper;
 import com.km.knowledgemessage.Mapper.UserMapper;
 import com.km.knowledgemessage.Model.*;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import javax.jws.soap.SOAPBinding;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
