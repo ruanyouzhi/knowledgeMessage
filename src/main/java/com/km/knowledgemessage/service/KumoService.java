@@ -20,7 +20,9 @@ import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -43,32 +45,22 @@ public class KumoService {
         Card card = cardMapper.selectByPrimaryKey(cardId);
         User user = userMapper.selectByPrimaryKey(card.getCreatorId());
         List<String> words = new ArrayList<>();
-        words.add(card.getCardDescription());
+        String[] split = card.getLabelName().split(",|，|。");
+        for (String s: split) {
+            words.add(s);
+        }
+        String[] split2 = card.getCardDescription().split(",|，|。");
+        for (String s: split2) {
+            words.add(s);
+        }
+        String[] split3 = card.getCardText().split(",|，|。");
+        for (String s: split3) {
+            words.add(s);
+        }
         words.add(card.getTitle());
-        words.add(card.getCardText());
-        words.add(card.getLabelName());
-        words.add(card.getCardDescription());
-        words.add(String.valueOf(card.getGmtCreate()));
-        words.add("最近做了一个小");
-        words.add("过串口通");
-        words.add("运行");
-        words.add("单片");
-        words.add("，然后在把所有参");
-        words.add("连接起");
-        words.add("CSDN");
-        words.add("级满意");
-        words.add(")这个函数");
-        words.add("C语言的标准库竟如此");
-        words.add("如此强大");
-        words.add("mysql的");
-        words.add("ar包，");
-        words.add("连接数据库，");
-        words.add("-connector-jav");
-        words.add("ng DRIVER_");
-        words.add("IVER_CLA");
-        words.add("n getConn(");
-        words.add("catch (SQL");
-
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(card.getGmtModified()))));
+        words.add(sd);
         wordFrequencyList = frequencyAnalyzer.load(words);
         // 设置图片分辨率
         Dimension dimension = new Dimension(500, 500);

@@ -18,7 +18,8 @@ public class wordCloudController {
     @RequestMapping("api/wordCloud")
     @CrossOrigin
     @ResponseBody
-    public Map<String,Object> wordCloud(@RequestParam long cardId) {
+    public Map<String,Object> wordCloud(@RequestParam Long cardId,
+                                        @RequestParam Long userId) {
         Map<String, Object> map = new HashMap<>();
         String wordCloud = kumoService.getWordCloud(cardId);
         try {
